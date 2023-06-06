@@ -37,7 +37,7 @@ exports.getUserById = (req, res) => {
 exports.getUsersByBrand = (req, res) => {
   db.query(
     "SELECT * FROM cars WHERE brand = ?;",
-    [req.body.brand],
+    [req.params.brand],
     (err, result, fields) => {
       if (err) return console.log(err);
       res.status(200).send({

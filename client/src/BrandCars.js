@@ -5,11 +5,12 @@ import { useState, useEffect } from "react";
 
 function BrandCars(props) {
   const brand = props.brand;
+  console.log(brand);
   const [cars, setCar] = useState({});
   const [loaded, setLoaded] = useState(false);
 
   const getCar = async () => {
-    const res = await fetch(`http://localhost:3000/car/${brand}`, {
+    const res = await fetch(`http://localhost:3000/car/brand/${brand}`, {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -17,18 +18,19 @@ function BrandCars(props) {
       method: "GET",
     });
     const data = await res.json();
-    setCar(data.result[0]);
+    setCar(data.result);
     setLoaded(true);
+    console.log(data.result);
   };
 
   useEffect(() => {
     getCar();
   }, []);
 
-  if (!loaded)
+  if (!loaded || !cars)
     return (
       <>
-        <p>Loading car...</p>
+        <p>Loading BrandCars...</p>
       </>
     );
 
@@ -47,15 +49,15 @@ function BrandCars(props) {
           </Card.Title>
           <Container>
             <Row>
-              {cars.map((cars) => (
+              {cars.map((car) => (
                 <MainPageCar
-                  id={cars.id}
-                  name={cars.name}
-                  engine={cars.engine}
-                  power={cars.power}
-                  color={cars.color}
-                  price={cars.price}
-                  img={cars.img}
+                  id={car.id}
+                  name={car.name}
+                  engine={car.engine}
+                  power={car.power}
+                  color={car.color}
+                  price={car.price}
+                  img={car.img}
                 />
               ))}
             </Row>

@@ -15,9 +15,9 @@ function MainPage() {
       method: "GET",
     });
     const data = await res.json();
-    console.log(data);
     setCars(data.result);
     setLoaded(true);
+    console.log(cars);
   };
 
   useEffect(() => {
